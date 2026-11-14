@@ -99,7 +99,7 @@ with mlflow.start_run():
     best_model = grid_search.best_estimator_
 
     # Set classification threshold
-    classification_threshold = 0.5
+    classification_threshold = 0.42
 
     # Make predictions on the training and test data
     y_pred_train_proba = best_model.predict_proba(Xtrain)[:, 1]
@@ -124,9 +124,12 @@ with mlflow.start_run():
         "test_f1-score": test_report['1']['f1-score']
     })
 
-    # Save the model next to app.py so the Streamlit app can load it directly,
+    ''' 
+    Save the model next to app.py so the Streamlit app can load it directly,
     # and log it as an MLflow artifact for traceability
-    model_path = "tourism_project/deployment/best_model.pkl"
+    '''
+    
+    model_path = "tourism_project/deployment/best_tourism_package_model_v1.joblib"
     joblib.dump(best_model, model_path)
     mlflow.log_artifact(model_path, artifact_path="model")
     print(f"Model saved to {model_path}")
